@@ -1,6 +1,8 @@
 # nuffsaid coding challenge
 
-As stated, I have added two files - search_schools.py and count_schools.py. The instruction to run each has been given below.
+As stated, I have added three files - search_schools.py, search_schools1.py and count_schools.py. The instruction to run each has been given below.
+
+Note: search_schools1.py is an algorithm with faster preprocessing time though the search may not be the best.
 
 ## Running count_schools.py
 1. Clone the repository to your local directory.

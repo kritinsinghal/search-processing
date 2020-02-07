@@ -31,8 +31,9 @@ class SearchSchool(object):
 					self.data[row[5]] = [school_name]
 
 
+
 	def school_search(self, query):
-		searchset = []
+		searchset = {}
 		duplicateSet = []
 		interSet = []
 		f = 0
@@ -40,36 +41,21 @@ class SearchSchool(object):
 		for x in splitQuery:
 			x = x.upper()
 			if x in self.data.keys():
-				k = self.data[x]
-			else:
-				continue
+				 for y in self.data[x]:
+				 	if y in searchset.keys():
+				 		searchset[y] += 1
+				 	else:
+				 		searchset[y] = 1
 
-			if len(searchset) > 3 and len(k) > 3:
-				interSet = interSet + list(set(searchset).intersection(set(k)))
+		for key, value in searchset.items():
+			duplicateSet.append([key, value])
 
-			if f == 0 and len(k) > 3:
-				searchset = k
-				f = 1
-			elif len(searchset) == 3:
-				break
-			elif len(k) < 3:
-				duplicateSet = list(set(searchset).difference(set(k)))
-				searchset = searchset + duplicateSet
-			elif len(k) > 3:
-				duplicateSet = list(set(searchset).difference(set(k)))
-				searchset = searchset + duplicateSet
-
-
+		duplicateSet.sort(key=lambda x:x[1], reverse=True)
 		print("Results for \"" + query + "\"\n")
-		if len(interSet) >= 3:	
-			for i in range(1, 4):
-				print(str(i) + ". " + interSet[i])
-
-		else:
-			for i in range(1, len(searchset)):
-				print(str(i) + ". " + searchset[i-1])
-				if i == 3:
-					break
+		for i in range(0, len(duplicateSet)):
+			print(str(i+1) + ". " + duplicateSet[i][0])
+			if i == 2:
+				break
 
 
 # Run the following command to execute the search. The preprocessing of data takes a while but the search is quite fast.
